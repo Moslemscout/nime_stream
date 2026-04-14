@@ -1,3 +1,6 @@
+# video-app has its own git repository
+video-app/
+
 # Dependencies
 video-app/node_modules/
 
