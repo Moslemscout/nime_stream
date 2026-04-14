@@ -1,0 +1,17 @@
+# Dependencies
+video-app/node_modules/
+
+# Build output
+video-app/.next/
+
+# Database
+video-app/prisma/dev.db
+video-app/dev.db
+video-app/prisma/*.db-journal
+
+# Environment
+video-app/.env*.local
+
+# OS
+.DS_Store
+Thumbs.db
