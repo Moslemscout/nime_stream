@@ -1,20 +1,51 @@
-# video-app has its own git repository
-video-app/
+# dependencies
+node_modules/
+.pnp
+.pnp.*
 
-# Dependencies
-video-app/node_modules/
+# testing
+coverage/
 
-# Build output
-video-app/.next/
+# next.js
+.next/
+out/
 
-# Database
-video-app/prisma/dev.db
-video-app/dev.db
-video-app/prisma/*.db-journal
+# production
+build/
 
-# Environment
-video-app/.env*.local
-
-# OS
+# misc
 .DS_Store
-Thumbs.db
+*.pem
+*.db
+*.db-journal
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# prisma
+**/src/generated/prisma
+**/prisma/migrations
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

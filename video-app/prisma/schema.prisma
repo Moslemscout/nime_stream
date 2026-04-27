@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  displayName String?
+  bio         String?
+  avatarColor String   @default("#6d28d9")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Video {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  categories  String      @default("General")
+  thumbnail   String
+  episodes    Episode[]
+  comments    Comment[]
+  watchlists  Watchlist[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Episode {
+  id        String    @id @default(uuid())
+  number    Int
+  title     String?
+  url480    String?
+  url720    String?
+  url1080   String?
+  videoId   String
+  video     Video     @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  content   String
+  userEmail String
+  videoId   String
+  episodeId String?
+  parentId  String?
+  approved  Boolean   @default(true)
+  video     Video     @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  episode   Episode?  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[] @relation("CommentReplies")
+  createdAt DateTime  @default(now())
+}
+
+model Watchlist {
+  id        String   @id @default(uuid())
+  userEmail String
+  videoId   String
+  listName  String   @default("Default")
+  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userEmail, videoId, listName])
+}
